@@ -1,4 +1,4 @@
-package abstractFactory;
+package abstract_factory;
 /*
 某界面可以使用不同风格的控件：
 按钮Button有Window风格的子类 WindowButton 和 Motif 风格的子类树MotifButton；
