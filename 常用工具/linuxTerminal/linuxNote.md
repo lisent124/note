@@ -365,7 +365,7 @@
 
 ## 文件目录结构
 
-![image-20230507105250331](C:\Users\lisent124\Desktop\code\notes\markdown\image\系统目录结构.png)
+![image-20230507105250331](image\系统目录结构.png)
 
 
 

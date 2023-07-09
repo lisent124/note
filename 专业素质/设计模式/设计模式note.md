@@ -45,25 +45,25 @@
 
 ## 工厂模式
 
-![image-20230523163526398](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\工厂模式.png)
+![image-20230523163526398](image\工厂模式.png)
 
 ## 抽象工厂
 
-![image-20230523163657454](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\抽象工厂.png)
+![image-20230523163657454](image\抽象工厂.png)
 
 
 
 ## 单例模式
 
-![image-20230523163732181](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\image-20230523163732181.png)
+![image-20230523163732181](image\image-20230523163732181.png)
 
 ## 建造者模式
 
-![image-20230523163918749](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\image-20230523163918749.png)
+![image-20230523163918749](image\image-20230523163918749.png)
 
 ## 原型模式
 
-![image-20230523164436852](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\image-20230523164436852.png)
+![image-20230523164436852](image\image-20230523164436852.png)
 
 
 
@@ -75,41 +75,41 @@
 
 ## 适配器模式
 
-![image-20230523164649155](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\image-20230523164649155.png)
+![image-20230523164649155](image\image-20230523164649155.png)
 
 ## 桥接模式
 
-![image-20230523164732730](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\image-20230523164732730.png)
+![image-20230523164732730](image\image-20230523164732730.png)
 
 ## 过滤器模式
 
-![过滤器模式的 UML 图](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\20230510-filter.svg)
+![过滤器模式的 UML 图](image\20230510-filter.svg)
 
 
 
 ## 组合模式
 
-![组合模式的 UML 图](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\20210817-composite-composite.svg)
+![组合模式的 UML 图](image\20210817-composite-composite.svg)
 
 
 
 ## 装饰器模式
 
-![装饰器模式的 UML 图](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\20210420-decorator-1-decorator-decorator.svg)
+![装饰器模式的 UML 图](image\20210420-decorator-1-decorator-decorator.svg)
 
 
 
 ## 外观模式
 
-![外观模式的 UML 图](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\20201015-facade.svg)
+![外观模式的 UML 图](image\20201015-facade.svg)
 
 ## 享元模式
 
-![享元模式的 UML 图](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\20201015-fiyweight.svg)
+![享元模式的 UML 图](image\20201015-fiyweight.svg)
 
 ## 代理模式
 
-![代理模式的 UML 图](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\20211025-proxy.svg)
+![代理模式的 UML 图](image\20211025-proxy.svg)
 
 # 行为模式
 
@@ -117,7 +117,7 @@
 
 ## 责任链模式
 
-![责任链模式的 UML 图](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\2021-chain-of-responsibility.svg)
+![责任链模式的 UML 图](image\2021-chain-of-responsibility.svg)
 
 ## 命令模式
 
@@ -125,48 +125,48 @@
 
 ## 解释器模式
 
-![解释器模式的 UML 图](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\interpreter_pattern_uml_diagram.jpg)
+![解释器模式的 UML 图](image\interpreter_pattern_uml_diagram.jpg)
 
 ## 迭代器模式
 
-![迭代器模式的 UML 图](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\202107-23-iterator-pattern.png)
+![迭代器模式的 UML 图](image\202107-23-iterator-pattern.png)
 
 ## 中介者模式
 
-![中介者模式的 UML 图](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\mediator_pattern_uml_diagram.jpg)
+![中介者模式的 UML 图](image\mediator_pattern_uml_diagram.jpg)
 
 
 
 ## 备忘录模式
 
-![备忘录模式的 UML 图](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\memento-20220601-memento.svg)
+![备忘录模式的 UML 图](image\memento-20220601-memento.svg)
 
 
 
 ## 观察者模式
 
-![观察者模式的 UML 图](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\observer_pattern_uml_diagram.jpg)
+![观察者模式的 UML 图](image\observer_pattern_uml_diagram.jpg)
 
 ## 状态模式
 
-![状态模式的 UML 图](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\state_pattern_uml_diagram.png)
+![状态模式的 UML 图](image\state_pattern_uml_diagram.png)
 
 
 
 ## 空对象模式
 
-![空对象模式的 UML 图](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\null_pattern_uml_diagram.jpg)
+![空对象模式的 UML 图](image\null_pattern_uml_diagram.jpg)
 
 ## 策略模式
 
-![策略模式的 UML 图](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\strategy_pattern_uml_diagram.jpg)
+![策略模式的 UML 图](image\strategy_pattern_uml_diagram.jpg)
 
 ## 模板模式
 
-![模板模式的 UML 图](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\template_pattern_uml_diagram.jpg)
+![模板模式的 UML 图](image\template_pattern_uml_diagram.jpg)
 
 
 
 ## 访问者模式
 
-![访问者模式的 UML 图](C:\Users\lisent124\Desktop\subject\passed\数据结构\note\image\visitor_pattern_uml_diagram.jpg)
+![访问者模式的 UML 图](image\visitor_pattern_uml_diagram.jpg)

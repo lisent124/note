@@ -15,7 +15,7 @@ Docker 是⼀个开源的应⽤容器引擎，基于 Go 语⾔， 并遵从 Apac
 
 ### docker的架构
 
-![imge-20230506171553304](C:\Users\lisent124\Desktop\code\notes\docker\image\docker架构.png)
+![imge-20230506171553304](image\docker架构.png)
 
 #### docker daemon (Docker守护进程)
 
@@ -133,7 +133,7 @@ Docker 官方维护了一个公共仓库 Docker Hub，其中已经包括了超�
 
 #### 镜像发布到仓库
 
-![image-20230506203825728](C:\Users\lisent124\Desktop\code\notes\docker\image\镜像上传到仓库.png)
+![image-20230506203825728](image\镜像上传到仓库.png)
 
 ##### 阿里云开发者平台
 
