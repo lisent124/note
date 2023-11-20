@@ -58,7 +58,7 @@ Docker Registry是一个集中存储与分发镜像的服务。
 
 #### 构建容器
 
-docker run -id[t] --name=**Container** -p **:POST1** **IMAGE** **Command**
+docker run -id[t] --name=**Container** -p **POST0:POST1** **IMAGE** **Command**
 
 - **-i** 表示以交互模式运行容器（让容器的标准输入保持打开）***interactive***
 - -d 表示后台运行容器，并返回容器ID  ***detach***

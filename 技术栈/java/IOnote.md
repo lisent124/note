@@ -30,16 +30,16 @@ java.lang.Object
 
 - java.io.**File** (implements java.lang.Comparable<T>, java.io.Serializable) 
 - java.io.**RandomAccessFile** (implements java.io.Closeable, java.io.DataInput, java.io.DataOutput) 
-- java.io.**InputStream** (implements java.io.Closeable) 
+- java.io.InputStream (implements java.io.Closeable) 
   - java.io.ByteArrayInputStream 
   - java.io.**FileInputStream** 
   - java.io.FilterInputStream 
     - java.io.**BufferedInputStream** 
     - java.io.**DataInputStream** (implements java.io.DataInput) 
-  - java.io.**ObjectInputStream** (implements java.io.ObjectInput, java.io.ObjectStreamConstants) 
+  - java.io.ObjectInputStream (implements java.io.ObjectInput, java.io.ObjectStreamConstants) 
   - java.io.PipedInputStream 
   - java.io.StringBufferInputStream 
-- java.io.**OutputStream** (implements java.io.Closeable, java.io.Flushable) 
+- java.io.OutputStream (implements java.io.Closeable, java.io.Flushable) 
   - java.io.ByteArrayOutputStream 
   - java.io.**FileOutputStream** 
   - java.io.FilterOutputStream 
@@ -48,8 +48,8 @@ java.lang.Object
     - java.io.**PrintStream** (implements java.lang.Appendable, java.io.Closeable) 
   - java.io.ObjectOutputStream (implements java.io.ObjectOutput, java.io.ObjectStreamConstants) 
   - java.io.PipedOutputStream 
-- java.io.**Reader** (implements java.io.Closeable, java.lang.Readable) 
-  - java.io.BufferedReader 
+- java.io.Reader (implements java.io.Closeable, java.lang.Readable) 
+  - java.io.**BufferedReader** 
     - java.io.LineNumberReader 
   - java.io.CharArrayReader 		
   - java.io.FilterReader 
@@ -58,8 +58,8 @@ java.lang.Object
     - java.io.**FileReader** 
   - java.io.PipedReader 
   - java.io.StringReader 
-- java.io.**Writer** (implements java.lang.Appendable, java.io.Closeable, java.io.Flushable) 
-  - java.io.BufferedWriter 
+- java.io.Writer (implements java.lang.Appendable, java.io.Closeable, java.io.Flushable) 
+  - java.io.**BufferedWriter** 
   - java.io.CharArrayWriter 
   - java.io.FilterWriter 
   - java.io.**OutputStreamWriter** 
@@ -82,7 +82,7 @@ java.lang.Object
 
 #### `InputStream`
 
-这个抽象类是表示输入字节流的所有类的超类
+这个**抽象类**是表示输入字节流的所有类的超类
 
 需要定义`InputStream`子类的应用程序必须始终提供一种返回输入的下一个字节的方法。
 
@@ -107,7 +107,7 @@ java.lang.Object
 
 #### `OutputStream`
 
-这个抽象类是表示字节输出流的所有类的超类。
+这个**抽象类**是表示字节输出流的所有类的超类。
 
 输出流接收输出字节并将其发送到某个接收器。
 
@@ -233,7 +233,7 @@ java.lang.Object
 
 ### Data 数据流
 
-数据流可将java中基本数据类型转化为字节流
+数据流可将java中**基本数据类型转化为字节流**
 
 | 对象                       | 构造方法                             |
 | -------------------------- | ------------------------------------ |
@@ -246,6 +246,7 @@ java.lang.Object
 
 - `java.io.PrintWriter`
 - `java.io.PrintStream`
+- `System.out`，它是一个 `PrintStream` 的实例，将文本输出到控制台
 
 将对象的格式表示打印到文本输出流。这个类实现所有的`print`中发现的方法`PrintStream`。它不包含用于编写原始字节的方法，程序应使用未编码的字节流。
 
@@ -266,9 +267,9 @@ java.lang.Object
 
 **`PrintStream`构造方法与上面相似**
 
-将对象的格式表示打印到文本输出流。这个类实现所有的`print`中发现的方法[`PrintStream`](../../java/io/PrintStream.html) 。它不包含用于编写原始字节的方法，程序应使用未编码的字节流。
+将对象的格式表示打印到文本输出流。这个类实现所有的`print`中发现的方法`PrintStream`。它不包含用于编写原始字节的方法，程序应使用未编码的字节流。
 
-不像[`PrintStream`](../../java/io/PrintStream.html)类，如果启用自动刷新，将只有当一个做`println`  ， `printf` ，或`format`被调用的方法，而不是当一个换行符恰好是输出。  这些方法使用平台自己的行分隔符而不是换行符。 
+不像`PrintStream`类，如果启用自动刷新，将只有当一个做`println`  ， `printf` ，或`format`被调用的方法，而不是当一个换行符恰好是输出。  这些方法使用平台自己的行分隔符而不是换行符。 
 
 ### 对象专属流
 
@@ -419,6 +420,35 @@ IO操作通常会使用缓冲区来提高性能，但并不会立即将数据写
 需要注意的是，**过度使用flush()可能会降低IO操作的性能**，因为频繁的刷新会增加IO操作的开销。
 
 因此，只有在确实需要数据立即写入目标设备的情况下才应该使用flush()，否则让缓冲区自动刷新会更高效。
+
+## 简单文件示例
+
+```java
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class FileReadWriteExample {
+    public static void main(String[] args) throws IOException {
+        String inputFilePath = "path/to/your/input/file.txt";
+        String outputFilePath = "path/to/your/output/file.txt";
+
+        // Reading from a file using InputStream
+        try (FileInputStream inputStream = new FileInputStream(inputFilePath)) {
+            int byteValue;
+            while ((byteValue = inputStream.read()) != -1) {
+                System.out.print((char) byteValue);
+
+                // Writing to another file using OutputStream
+                try (FileOutputStream outputStream = new FileOutputStream(outputFilePath, true)) {
+                    outputStream.write(byteValue);
+                }
+            }
+        }
+    }
+}
+
+```
 
 
 

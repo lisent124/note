@@ -168,7 +168,7 @@
 
 ### 邻接表
 
-使用稀疏图
+适用用稀疏图
 
 # 查找
 
@@ -222,13 +222,15 @@
 
 #### 链地址法
 
+#### 再哈希法
+
 
 
 # 排序
 
 **排序** *是按照关键字的非递减或者递增顺序对一组记录重新进行排序操作*
 
-![image-20230523112028179](\image\image-20230523112028179.png)
+![image-20230523112028179](image\image-20230523112028179.png)
 
 
 
@@ -236,29 +238,247 @@
 
 ### 直接插入排序
 
+```python
+
+def insertSort(rl : list)-> list:
+    for i in range(1,len(rl)):
+        obj = rl[i]
+        j = i - 1
+        while obj < rl[j] and j >= 0:
+            rl[j+1] = rl[j]
+            j -= 1
+        rl[j+1] = obj
+    return rl
+
+```
+
+
+
 ### 折半插入排序
 
 ### 希尔排序
+
+```python
+def shellSort(arr):
+    """
+    插入排序的改进版本，通过从大gap比较插入，大幅减小逆差和
+    """
+    n = len(arr)
+    gap = n // 2  # 初始间隔设置为数组长度的一半
+    while gap > 0:
+        for i in range(gap, n):
+            temp = arr[i]
+            j = i
+            while j >= gap and arr[j - gap] > temp:
+                arr[j] = arr[j - gap]
+                j -= gap
+            arr[j] = temp
+        gap //= 2  # 缩小间隔
+    return arr
+```
+
+
 
 ## 交换排序
 
 ### 冒泡排序
 
+```python
+def BubbleSort(rl: list) -> list:
+    # 冒泡排序是交换排序的一种
+    for i in range(len(rl)):
+        sign = False
+        for j in range(0,len(rl)-i-1):
+            if rl[j] > rl[j+1]:
+                rl[j],rl[j+1] = rl[j+1], rl[j]
+                sign = True
+        if sign is False:
+            break
+    return rl
+
+```
+
 ### 快速排序
+
+快速
+
+```python
+def quickSort(arr: list)-> list:
+    if len(arr) <= 1:
+        return arr
+    
+    temp = arr[len(arr) // 2]
+    pre = [x for x in arr if x < temp]
+    mid = [x for x in arr if x == temp]
+    end = [x for x in arr if x > temp]
+
+    return quickSort(pre) + mid + quickSort(end)
+
+def quickSort2(arr=rl):
+    """
+    在原数组空间中交换
+    """
+    def partition(low,hight):
+        key = arr[low]
+        while low < hight:
+            while low < hight and key <= arr[hight]: hight -= 1
+            arr[low] = arr[hight]
+            while low < hight and key >= arr[low]: low += 1
+            arr[hight] = arr[low]
+        arr[low] = key
+        return low
+    
+    def Qsort(low,hight):
+        if low < hight:
+            mid = partition(low,hight)
+            Qsort(low,mid-1)
+            Qsort(mid+1,hight)
+
+    Qsort(0,len(arr)-1)
+    return arr
+```
+
+
 
 ## 选择排序
 
+在未排序部分选择最小（或最大）的元素，并将其放置在已排序部分的末尾
+
 ### 简单选择排序
+
+```python
+def selection_sort(arr):
+    # 遍历整个数组
+    for i in range(len(arr)):
+        # 假设当前位置的元素是最小的
+        min_index = i
+        
+        # 在未排序部分查找更小的元素
+        for j in range(i + 1, len(arr)):
+            if arr[j] < arr[min_index]:
+                min_index = j
+        
+        # 将找到的最小元素与当前位置的元素交换
+        arr[i], arr[min_index] = arr[min_index], arr[i]
+
+```
+
+
 
 ### 树形选择排序
 
-又称 锦标赛排序
+又称 锦标赛排序 堆排序
 
-### 堆排序
+堆排序（Heap Sort）是一种基于堆数据结构的排序算法，它包括两个主要步骤：构建最大堆和反复从堆顶取出最大元素并调整堆
+
+```python
+def build_max_heap(arr):
+    """
+    构建最大堆
+    """
+    def max_heapify(arr, n, i):
+        """
+        将以i为根的子树调整为最大堆
+        """
+        largest = i  # 初始化最大元素的索引
+        left_child = 2 * i + 1
+        right_child = 2 * i + 2
+
+        # 比较左子节点和根节点
+        if left_child < n and arr[left_child] > arr[largest]:
+            largest = left_child
+
+        # 比较右子节点和当前最大节点
+        if right_child < n and arr[right_child] > arr[largest]:
+            largest = right_child
+
+        # 如果最大节点不是根节点，交换它们，并继续调整子树
+        if largest != i:
+            arr[i], arr[largest] = arr[largest], arr[i]
+            # 递归调整子树
+            max_heapify(arr, n, largest)
+    n = len(arr)
+    # 从最后一个非叶子节点开始向上调整堆
+    for i in range(n // 2 - 1, -1, -1):
+        max_heapify(arr, n, i)
+```
+
+
+
+
 
 ## 并归排序
 
+归并排序（Merge Sort）是一种基于分治策略的排序算法，它的核心思想是将待排序的数组分成两个较小的子数组，然后分别对这两个子数组进行排序，最后将它们合并成一个有序的数组。归并排序是一种稳定的排序算法，具有良好的时间复杂度，通常在大型数据集上表现出色。
+
+```python
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2  # 找到数组中间位置
+        left_half = arr[:mid]
+        right_half = arr[mid:]
+
+        # 递归地对左右子数组进行归并排序
+        merge_sort(left_half)
+        merge_sort(right_half)
+
+        i = j = k = 0
+
+        # 合并两个子数组
+        while i < len(left_half) and j < len(right_half):
+            if left_half[i] < right_half[j]:
+                arr[k] = left_half[i]
+                i += 1
+            else:
+                arr[k] = right_half[j]
+                j += 1
+            k += 1
+
+        # 处理剩余的元素
+        while i < len(left_half):
+            arr[k] = left_half[i]
+            i += 1
+            k += 1
+
+        while j < len(right_half):
+            arr[k] = right_half[j]
+            j += 1
+            k += 1
+
+```
+
+
+
 ## 基数排序
+
+基数排序（Radix Sort）是一种非比较性的排序算法，它根据数字的每一位进行排序。它的工作原理是先从最低有效位（个位）开始，按照这一位的数值将元素分桶，然后依次处理更高位的数字，直到最高位排序完成。这个过程需要多轮迭代，直到所有位都被处理完。
+
+```python
+def radix_sort(arr):
+    # 获取数组中最大元素的位数
+    max_num = max(arr)
+    max_digits = len(str(max_num))
+    
+    for digit in range(max_digits):
+        # 创建10个桶（0到9）
+        buckets = [[] for _ in range(10)]
+        
+        # 将元素按照当前位的数字分配到对应的桶中
+        for num in arr:
+            digit_val = (num // 10 ** digit) % 10
+            buckets[digit_val].append(num)
+        
+        # 重新合并桶中的元素，按照当前位的顺序
+        arr = []
+        for bucket in buckets:
+            arr.extend(bucket)
+    
+    return arr
+
+
+```
+
+
 
 
 

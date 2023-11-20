@@ -133,7 +133,7 @@ new Thread(new RunTest()).start()
 1. 相比run()方法，可以有返回值
 2. 方法可以抛出异常
 3. 支持泛型的返回值
-4. 需要借助FutureTask类，比如获取返回结果
+4. 需要借助Future类，比如获取返回结果
 
 
 
@@ -146,7 +146,7 @@ class CallTest implements Callable<Object> {
     }
 }
 // 启动方法 
-FutureTask<String> threadTask= new FutureTask<>(new CallTest());
+Future<String> thread= new Future<>(new CallTest());
 new Thread(threadTask).start
 
 ```
@@ -180,6 +180,58 @@ service.execute(new Thread()); //适合用于Runnable
 //关闭线程池
 service.shutdown();
 ```
+
+### 种类
+
+1. **`FixedThreadPool`（固定大小线程池）：** 这种线程池固定了线程的数量，当有新任务提交时，如果线程池中的线程都在执行任务，任务会被放入队列中等待。这适用于限制资源占用的情况，例如服务器端处理请求。
+
+   ```
+   ExecutorService executor = Executors.newFixedThreadPool(5);
+   ```
+
+2. **`CachedThreadPool`（缓存线程池）：** 这种线程池不固定线程的数量，线程数量会根据任务的需求自动增加或减少。适用于有大量短生命周期任务的场景。
+
+   ```
+   ExecutorService executor = Executors.newCachedThreadPool();
+   ```
+
+3. **`SingleThreadExecutor`（单线程线程池）：** 这个线程池只有一个线程，用于按顺序执行任务。适用于需要保证任务按顺序执行的情况。
+
+   ```
+   ExecutorService executor = Executors.newSingleThreadExecutor();
+   ```
+
+4. **`ScheduledThreadPool`（定时线程池）：** 这种线程池用于执行定时任务或周期性任务。它允许你在指定的延迟后执行任务，或者按固定的时间间隔执行任务。
+
+   ```
+   ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+   ```
+
+5. **`WorkStealingPool`（工作窃取线程池）：** 这是Java 8引入的一种线程池，它使用工作窃取算法，允许任务在多个线程之间自动平衡负载。每个线程都维护一个自己的双端队列，可以偷取其他线程队列的任务。
+
+   ```
+   ExecutorService executor = Executors.newWorkStealingPool();
+   ```
+
+6. **Custom Thread Pools（自定义线程池）：** 除了上述内置线程池，你还可以自定义线程池，通过`ThreadPoolExecutor`类来创建自己的线程池，可以指定核心线程数、最大线程数、任务队列等参数，以满足特定的需求。
+
+   ```
+   ThreadPoolExecutor customThreadPool = new ThreadPoolExecutor(
+       corePoolSize, // 核心线程数
+       maximumPoolSize, // 最大线程数
+       keepAliveTime, // 线程闲置时间
+       TimeUnit.SECONDS, // 闲置时间单位
+       new LinkedBlockingQueue<>(), // 任务队列
+       new ThreadFactory() {
+           @Override
+           public Thread newThread(Runnable r) {
+               return new Thread(r);
+           }
+       }
+   );
+   ```
+
+
 
 
 
@@ -222,7 +274,7 @@ public class SynchronizedExample {
 
 ```java
 public synchronized void increment() {
-    count++;S
+    count++;
 }
 
 public synchronized int getCount() {
@@ -357,3 +409,165 @@ public class ProducerConsumerExample {
 
 ```
 
+
+
+
+
+# java多进程
+
+在Java中，创建多进程通常是通过启动独立的外部进程来实现的
+
+
+
+## 实现方法
+
+Java提供了两种方法用来启动进程或其它程序：
+
+1. 使用`Runtime`的exec()方法
+2. 使用`ProcessBuilder`的start()方法
+
+
+
+### `ProcessBuilder`类
+
+ `ProcessBuilder`类是J2SE 1.5在`java.lang`中新添加的一个新类，此类用于创建操作系统进程，它提供一种启动和管理进程（也就是应用程序）的方法。
+```java
+try {
+    ProcessBuilder processBuilder = new ProcessBuilder("my-command", "arg1", "arg2");
+    Process process = processBuilder.start();
+    // 进一步处理进程
+} catch (IOException e) {
+    e.printStackTrace();
+}
+
+```
+
+| 方法                                                         | 描述                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `Process start()`                                            | 启动一个新的进程，执行指定的命令和参数，并返回与该进程关联的`Process`对象。 |
+| `ProcessBuilder command(String... command)`                  | 设置要执行的命令和参数。                                     |
+| `ProcessBuilder directory(File directory)`                   | 设置进程的工作目录。                                         |
+| `ProcessBuilder redirectErrorStream(boolean redirect)`       | 将错误输出流与标准输出流合并。                               |
+| `ProcessBuilder redirectInput(ProcessBuilder.Redirect source)` | 设置进程的标准输入流。                                       |
+| `ProcessBuilder redirectOutput(ProcessBuilder.Redirect destination)` | 设置进程的标准输出流。                                       |
+| `void inheritIO()`                                           | 将进程的标准输入、标准输出和错误输出流继承到当前Java进程，通常用于控制台应用。 |
+
+
+
+
+
+### `Runtime`类
+
+每个 Java 应用程序都有一个 Runtime 类实例，使应用程序能够与其运行的环境相连接。可以通过 `getRuntime` 方法获取当前运行时。
+ 应用程序不能创建自己的 `Runtime` 类实例。但可以通过 `getRuntime` 方法获取当前`Runtime`运行时对象的引用。一旦得到了一个当前的`Runtime`对象的引用，就可以调用`Runtime`对象的方法去控制Java虚拟机的状态和行为。
+
+```java
+try {
+    Runtime runtime = Runtime.getRuntime();
+    Process process = runtime.exec("my-command arg1 arg2");
+    // 进一步处理进程
+} catch (IOException e) {
+    e.printStackTrace();
+}
+```
+
+| 方法                                                    | 描述                                                         |
+| ------------------------------------------------------- | ------------------------------------------------------------ |
+| `Process exec(String command)`                          | 启动一个新的进程，执行指定的命令，返回与该进程关联的`Process`对象。 |
+| `Process exec(String command, String[] envp)`           | 启动一个新的进程，可以设置环境变量。                         |
+| `Process exec(String command, String[] envp, File dir)` | 启动一个新的进程，可以设置工作目录和环境变量。               |
+| `void addShutdownHook(Thread hook)`                     | 添加一个关闭挂钩，用于在JVM关闭时执行一些清理操作。          |
+| `long totalMemory()`                                    | 返回JVM的总内存量。                                          |
+| `long freeMemory()`                                     | 返回JVM的空闲内存量。                                        |
+| `void gc()`                                             | 强制执行垃圾回收操作。                                       |
+
+
+
+## 操作进程
+
+
+
+### `Process` 类
+
+在J2SE 1.5之前，都是由Process类处来实现进程的控制管理。
+
+Process 类提供了执行从**进程输入、执行输出到进程、等待进程完成、检查进程的退出状态以及销毁（杀掉）进程**的方法
+
+
+
+| 方法                                           | 描述                                                         |
+| ---------------------------------------------- | ------------------------------------------------------------ |
+| `InputStream getErrorStream()`                 | 返回与进程的错误输出流关联的`InputStream`，可以用于读取进程的错误信息。 |
+| `OutputStream getOutputStream()`               | 返回与进程的输出流关联的`OutputStream`，可以用于向进程提供输入数据。 |
+| `int waitFor()`                                | 阻塞当前线程，等待进程的退出，并返回进程的退出值。           |
+| `int exitValue()`                              | 返回进程的退出值，如果进程尚未退出，则抛出`IllegalThreadStateException`。 |
+| `void destroy()`                               | 强制销毁与进程关联的本机进程。                               |
+| `void destroyForcibly()`                       | 强制销毁与进程关联的本机进程，并尝试终止任何子进程。         |
+| `boolean isAlive()`                            | 检查进程是否仍在运行。                                       |
+| `boolean waitFor(long timeout, TimeUnit unit)` | 在指定的时间内等待进程退出，超时后返回`true`，否则返回`false`。 |
+| `ProcessHandle toHandle()`                     | 将`Process`对象转换为`ProcessHandle`对象，Java 9及更高版本引入的方法，提供更多进程管理功能。 |
+| `String toString()`                            | 返回描述进程的字符串表示。                                   |
+
+
+
+
+
+### `ProcessHandle` 类
+
+`ProcessHandle`是Java 9及更高版本中引入的新API，用于更**全面地管理和监控进程**。它提供了访问有关本机进程的信息和操作的能力。以下是使用`ProcessHandle`的一些常见用法：
+
+1. **获取当前进程的`ProcessHandle`：**
+
+   您可以使用`ProcessHandle.current()`方法获取当前Java应用程序的`ProcessHandle`。这允许您访问当前进程的信息。
+
+   ```java
+   ProcessHandle currentProcess = ProcessHandle.current();
+   ```
+
+2. **获取所有进程的`ProcessHandle`：**
+
+   您可以使用`ProcessHandle.allProcesses()`方法获取系统中所有进程的`ProcessHandle`。这允许您枚举系统中所有进程的信息。
+
+   ```java
+   Stream<ProcessHandle> allProcesses = ProcessHandle.allProcesses();
+   allProcesses.forEach(processHandle -> {
+       System.out.println("Process ID: " + processHandle.pid());
+       System.out.println("Command: " + processHandle.info().command().orElse("N/A"));
+   });
+   ```
+
+3. **获取进程信息：**
+
+   您可以使用`ProcessHandle.Info`对象来获取进程的各种信息，如进程ID、命令、启动时间等。示例：
+
+   ```java
+   long pid = currentProcess.pid();
+   Optional<String> command = currentProcess.info().command();
+   Instant startTime = currentProcess.info().startInstant().orElse(null);
+
+   System.out.println("Process ID: " + pid);
+   System.out.println("Command: " + command.orElse("N/A"));
+   System.out.println("Start Time: " + startTime);
+   ```
+
+4. **操作进程：**
+
+   `ProcessHandle`还提供了操作进程的方法，如`destroy()`（终止进程）和`destroyForcibly()`（强制终止进程）。
+
+   ```java
+   if (currentProcess.isAlive()) {
+       currentProcess.destroy();
+   }
+   ```
+
+5. **监视进程：**
+
+   您可以使用`onExit`方法来监视进程的退出事件，并执行相关操作。这使得您可以在进程退出时触发某些操作。
+
+   ```java
+   currentProcess.onExit().thenAccept(process -> {
+       System.out.println("Process " + process.pid() + " has exited.");
+   });
+   ```
+
+请注意，`ProcessHandle`提供了更强大的功能，允许您更全面地管理本机进程。这对于系统管理、监控、以及需要与外部进程进行交互的应用程序非常有用。在实际应用中，您可以根据需要使用`ProcessHandle`来监视和管理进程。

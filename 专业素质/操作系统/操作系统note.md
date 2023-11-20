@@ -106,8 +106,8 @@
 ### 产生的必要条件
 
 1.  资源互斥 **mutual exclusion**
-2. 占有并等待 **hold and wait**
-3. 非抢占 **no preemption**
+2. 
+3. 占有并等待 **hold and wait**
 4. 循环等待 **circular wait**
 
 ### 死锁的处理
